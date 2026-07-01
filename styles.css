@@ -7,11 +7,30 @@
 
 html, body {
   overflow: hidden;
-  overscroll-behavior: none;
   height: 100%;
   width: 100%;
   position: fixed;
 }
+
+.secret-text-trigger {
+            color: inherit;       
+            font-weight: inherit;  
+            cursor: default;      
+            
+            /* Smoothly fades the color back to normal after the success flash */
+            transition: color 0.5s ease-in-out; 
+
+            /* Stops text selection highlight during rapid clicks */
+            user-select: none; 
+            -webkit-user-select: none; 
+        }
+
+        /* THE SUCCESS FLASH COLOR (Green) */
+        .secret-text-trigger.success-flash {
+            color: #2e7d32 !important; 
+            font-weight: bold; /* Optional: makes it bold briefly so it stands out */
+            transition: none;  /* Makes the flash instant on the 5th click */
+        }
 
 #home.page,
 #qr.page,
