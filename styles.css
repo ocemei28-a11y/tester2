@@ -1,0 +1,2134 @@
+/* GLOBAL STYLES */
+* {
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+
+html, body {
+  overflow: hidden;
+  overscroll-behavior: none;
+  touch-action: none;
+  height: 100%;
+  width: 100%;
+  position: fixed;
+}
+
+#home.page,
+#qr.page,
+#pin.page {
+  touch-action: pan-y;
+  overflow-y: auto;
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: #ffffff;
+  color: #111;
+}
+
+.back {
+  background: none;
+  border: none;
+  outline: none;
+  box-shadow: none;
+  text-decoration: none;
+  color: #111;
+  font-size: 28px;
+  font-weight: bold;
+  display: inline-block;
+  padding: 4px 8px;
+  cursor: pointer;
+  left: 16px;
+  line-height: 1;
+  border-radius: 10px;
+}
+
+/* removes blue/black focus ring when clicked */
+.back:focus,
+.back:active {
+  outline: none;
+  box-shadow: none;
+}
+
+.back:active,
+.back:visited,
+.back:hover {
+  color: #111;             /* keeps color consistent on click, hover, visited */
+  text-decoration: none;
+}
+
+
+#home .nav,
+#identity .nav,
+#age .nav {
+  display: none !important;
+}
+
+.app {
+  max-width: 414px;
+  width: 100%;
+      height: 100%;
+  margin: 0 auto;
+  background: #fff;
+  max-height: 896px;
+}
+
+
+/* HEADER */
+.top-header {
+  display: flex;
+  align-items: center;
+  justify-content: center; /* center all children */
+  position: relative;      /* needed for back button absolute positioning */
+  height: 56px;
+  padding: 0 16px;
+  border-bottom: 1px solid #eee;
+  padding-top: env(safe-area-inset-top);
+  height: calc(56px + env(safe-area-inset-top));
+  z-index: 10;
+}
+
+.top-header .title {
+  font-weight: 600;
+  font-size: 18px;
+}
+
+.top-header .back {
+  position: absolute;      /* place back button independently on the left */
+  left: 16px;
+  font-size: 28px;
+}
+
+
+/* REFRESH */
+.refresh {
+  text-align: center;
+  font-size: 13px;
+  color: #8b8b8b;
+  padding: 10px 0;
+}
+
+/* LICENCE BAR */
+.licence-bar {
+  display: flex;
+  justify-content: space-between; /* text left, logo right */
+  align-items: center;            /* vertical center */
+  padding: 16px;
+  background: #d32f2f;
+  color: white;
+}
+
+.licence-text {
+  display: flex;
+  flex-direction: column;         /* stack title + subtitle */
+  justify-content: center;        /* vertical center in flex */
+}
+
+.licence-title {
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.licence-sub {
+  font-size: 12px;
+  margin-top: 2px; /* slight spacing between lines */
+}
+
+.logo img {
+  height: 22px;                /* perfectly matches text height */
+  width: auto;
+  object-fit: contain;
+  filter: brightness(0) invert(1); /* makes it white */
+}
+
+/* IMAGE SECTION */
+.image-section {
+  width: 100%;
+}
+
+.image-section img {
+  width: 100%;
+  display: block;
+}
+
+.segmented {
+  display: flex;
+  width: fit-content;
+  margin: 16px auto 0;
+  background: #ffffff;
+  border-radius: 999px;
+  border: 1px solid #e5e7eb;
+  position: relative;
+}
+
+.segmented .slider-pill {
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  left: 3px;
+  background: #1f3b63;
+  border-radius: 999px;
+  transition: left 0.6s ease, width 0.6s ease;
+  z-index: 0;
+  width: 0;
+}
+
+.segmented button {
+  border: none;
+  background: transparent;
+  padding: 5px 42px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  color: #1f2937;
+  transition: color 0.2s ease;
+  position: relative;
+  z-index: 1;
+}
+
+.segmented button.active {
+  background: transparent;
+  color: white;
+}
+
+.licence-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+
+button.active {
+  background-color: black;
+  color: white;
+}
+
+
+
+
+
+
+
+.launch-spinner {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 3px solid #e5e7eb;
+  border-top: 3px solid #2e7d1f;
+  animation: spin 0.8s linear infinite;
+}
+
+.pin-dot {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 2px solid #111;
+  background: transparent;
+  transition: background 0.15s ease;
+}
+
+.pin-dot.filled {
+  background: #111;
+}
+
+.pin-key {
+  font-size: 20px;
+  font-weight: 600;
+  color: #111;
+  padding: 18px 0;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+
+.pin-key:active {
+  opacity: 0.4;
+}
+
+.pin-key-muted {
+  font-size: 15px;
+  color: #6b7280;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* DETAILS */
+.details {
+  padding: 0 16px 24px;
+}
+
+.details h2 {
+  margin-bottom: 20px;
+  margin-top: 40px;
+}
+
+#tab-identity h2 {
+  margin-top: -10px;
+}
+
+.row{
+  display:flex;
+  justify-content:flex-start; /* don't push to far right */
+  gap: 62px;                  /* controls how "middle" the right column is */
+  margin-bottom: 24px;
+}
+
+.row > div{
+  width: 150px;               /* makes both columns consistent */
+}
+
+
+.row span {
+  font-size: 12px;
+  color: #8b8b8b;
+}
+
+.row strong {
+  display: block;
+  margin-top: 4px;
+}
+
+.badge {
+  display: inline-flex;             /* inline-block + flex centering */
+  align-items: center;              /* vertically center image */
+  justify-content: center;          /* horizontally center image */
+  background-color: #DE3424;        /* same red as Tailwind example */
+  padding: 2px 6px;                 /* approximate px-1.5 py-0.5 in Tailwind */
+  font-size: 0.75rem;               /* text-xs equivalent, fallback if image missing */
+  font-weight: 700;                  /* bold, for fallback text */
+  line-height: 1;                    /* centers content vertically */
+}
+
+.badge-image {
+  height: 0.75rem;                  /* matches text-xs (12px) */
+  width: auto;                       /* preserve aspect ratio */
+  display: block;
+}
+
+
+
+h3 {
+  margin-top: 28px;
+  margin-bottom: 12px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #222;
+}
+
+.single {
+  margin-bottom: 24px;
+}
+
+.single span {
+  font-size: 12px;
+  color: #8b8b8b;
+}
+
+.single strong {
+  display: block;
+  margin-top: 4px;
+}
+
+.muted {
+  color: #8b8b8b;
+}
+
+.pill {
+  background: #e5e7eb;
+  color: #333;
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  margin-left: 6px;
+}
+
+.barcode {
+  margin-top: 8px;
+  height: 48px;
+  background: repeating-linear-gradient(
+    90deg,
+    #000,
+    #000 2px,
+    #fff 2px,
+    #fff 4px
+  );
+  border-radius: 4px;
+}
+
+.divider {
+  height: 1px;
+  background: #d1d5db;
+  margin: 12px 0 16px;
+  border-radius: 1px;
+}
+
+/* GRID-2 STACKED */
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr; /* single column */
+  gap: 16px;                  /* vertical spacing */
+}
+
+.cell span {
+  font-size: 12px;
+  color: #8b8b8b;
+}
+
+.cell strong {
+  display: block;
+  margin-top: 4px;
+}
+
+.section-banner {
+  position: relative;
+  margin: 24px -16px 12px;       /* negative horizontal margin to stretch full width of container */
+  background-color: #E8EAF0;   /* light gray-blue background */
+  padding: 8px 16px;           /* vertical and horizontal padding */
+  border-radius: 4px;          /* optional: slightly rounded corners */
+}
+
+.section-banner h3 {
+  margin: 0;                   /* remove default margin */
+  font-size: 0.875rem;         /* text-sm in Tailwind (14px) */
+  font-weight: 600;             /* semibold */
+  color: #5B6B7C;              /* muted dark gray-blue text */
+}
+.signature-image {
+  width: auto;           /* do not stretch full width */
+  max-width: 200px;      /* adjust to desired width */
+  height: auto;          /* maintain aspect ratio */
+  display: block;
+  margin-top: 4px;       /* spacing below the label */
+  object-fit: contain;   /* keeps proportions */
+}
+
+.car-permit {
+  font-weight: 600;              /* semibold */
+  color: #111;                   /* dark text (similar to text-gray-900) */
+  display: flex;                 /* flex container to align text + badge */
+  align-items: center;           /* vertically center badge with text */
+  gap: 4px;                      /* space between text and badge */
+  margin: 0;                     /* remove default margin if needed */
+}
+
+.permit-badge {
+  display: inline-flex;          /* center contents inside badge */
+  align-items: center;
+  justify-content: center;
+  padding: 2px 1px;              /* px-1.5 py-0.5 equivalent */          /* slightly rounded corners */
+}
+
+.permit-icon {
+  width: 24px;                   /* roughly text-xs size */
+  height: 24px;
+  object-fit: contain;           /* maintain image proportions */
+  display: block;
+}
+
+.status-tick {
+  width: 24px;            /* adjust to match text height */
+  height: 24px;
+  object-fit: contain;
+  display: inline-block;
+  vertical-align: middle; /* aligns tick with text baseline */
+  margin-right: 4px;      /* space between tick and "Current" */
+}
+
+.proficiency-logo {
+  width: 24px;             /* match text height */
+  height: 24px;            
+  object-fit: contain;     
+  display: inline-block;    
+  vertical-align: middle;  /* aligns image with text baseline */
+  margin-right: 4px;       /* spacing between logo and text */
+}
+
+.a-logo {
+  width: 35px;             /* match text height */
+  height: 15px;            
+  object-fit: contain;     
+  display: inline-block;    
+  vertical-align: middle;  /* aligns image with text baseline */
+  margin-right: 4px;       /* spacing between logo and text */
+}
+
+.ass-icon {
+  width: 111px;                   /* roughly text-xs size */
+  height: 24px;
+  object-fit: contain;           /* maintain image proportions */
+  display: block;
+}
+
+.barcode-logo {
+    width: 400px;
+    margin-top: 10px;
+    align-items: center;
+}
+
+.card-number-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 4px;
+}
+
+.eye-btn {
+  background: none;
+  border: none;
+  padding: 4px;
+  cursor: pointer;
+}
+
+.eye-icon {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+  opacity: 0.8;
+}
+
+.eye-btn:active .eye-icon {
+  opacity: 0.5;
+}
+
+
+.details.fade-in {
+  animation: tabFade 1s ease forwards;
+}
+
+@keyframes tabFade {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.content,
+.details {
+  padding-bottom: calc(96px + env(safe-area-inset-bottom));
+}
+
+.qr-wrap{
+  position: relative;
+}
+
+.qr-hotspot{
+  position: absolute;
+
+  /* 👇 move these until it sits on top of the screenshot button */
+  left: 57.5%;
+  top: 70%;
+  width: 32%;
+  height: 14%;
+
+  background: transparent; /* invisible */
+  border: none;
+  cursor: pointer;
+
+  /* stops blue highlight on mobile */
+  -webkit-tap-highlight-color: transparent;
+
+  /* hide text (but keeps accessibility) */
+  color: transparent;
+}
+
+.inline-strong {
+  display: inline-flex;
+  align-items: center;   /* moves Car UP */
+  gap: 6px;
+  line-height: 1;
+}
+
+
+ /* add shit here */
+
+ #tab-age .age-label {
+  font-size: 12px;
+  color: #8b8b8b;
+  padding: 1px 16px 10px;
+  padding-top: -50px;
+}
+
+#tab-age {
+  padding-top: -50px;
+  margin-top: -50x;
+}
+
+#tab-age .age-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 16px 18px;
+}
+
+#tab-age .age-check {
+  width: 26px;
+  height: 26px;
+  border-radius: 999px;
+  background: #2fb344;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+  font-size: 16px;
+}
+
+#tab-age .age-value {
+  font-size: 18px;
+  font-weight: 700;
+  color: #111;
+}
+
+
+
+/* HOMEPAGE */
+
+* * #homepage {
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+#homepage body {
+  margin: 0;
+  background: #e9eff3;
+  display: flex;
+  justify-content: center;
+}
+
+/* PHONE CONTAINER */
+#homepage .app {
+  max-width: 430px;
+  width: 100%;
+      height: 100%;
+  background: #eef3f6;
+  position: relative; /* important for absolute positioning */
+  overflow: hidden;
+  margin: 0 auto;
+  min-height: 100vh;
+}
+
+/* CONTENT */
+#homepage .content {
+  padding: 20px 16px 120px;
+}
+
+/* HEADER */
+#homepage .header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-top: 60px;
+  padding-bottom: 0px;
+}
+
+#homepage .check {
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  border: 2px solid #1abc9c;
+  color: #1abc9c;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+#homepage .header .welcome {
+    font-family: "SF Pro Display", -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 32px;
+    font-weight: 700;
+    margin-left: 24px;
+    margin-bottom: 20px;
+    margin-top: 0;
+    color: #243544;
+}
+
+/* BUTTON CARDS */
+#homepage .card {
+  background: white;
+  border-radius: 16px;
+  padding: 18px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 14px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.06);
+}
+
+#homepage .icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #eaf7f1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+}
+
+/* LICENCE BUTTON */
+#homepage .licence-link {
+  position: absolute;
+  bottom: -5px;         /* distance above nav; change this for spacing */
+  left: 0;
+  right: 0;
+  display: flex;         /* centers the image */
+  justify-content: center;
+  text-decoration: none;
+  color: inherit;
+  position: absolute;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  }
+
+#homepage .licence-btn {
+  width: calc(100% - 32px);
+  max-width: 390px;
+  height: auto; /* keep this — never change it */
+  border-radius: 5px;
+  box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+  transition: transform 0.1s ease-in-out;
+  transform: translateY(40px); /* move image down — adjust px until nav disappears */
+}
+
+#homepage.licence-btn:active {
+  transform: scale(0.99);
+}
+
+/* BOTTOM NAV */
+ .nav {
+  position: absolute;   /* inside phone */
+  bottom: 0;            /* flush at bottom */
+  left: 0;
+  right: 0;
+  height: 100px;
+  background: white;
+  border-top: 1px solid #ddd;
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+  overflow: hidden;
+}
+
+#homepage .nav a {
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: #666;
+  font-size: 12px;
+}
+
+.nav-icon {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+  display: block;
+  margin-top: 11px;
+  transition: transform 0.3s ease;
+  transform-origin: center center;
+  flex-shrink: 0;
+}
+
+.nav-link span {
+  font-size: 12px !important;
+  line-height: 1;
+  display: block;
+}
+
+
+.nav-link[data-page="homepage"] .nav-icon {
+  height: 20px;
+  width: 23.5px;
+  margin-top: 14.5px;
+}
+
+.nav-link[data-page="homepage"] span {
+  margin-top: 12px;
+}
+
+.nav-link[data-page="homepage"].active .nav-icon {
+  width: 62.5px;
+  height: 30px;
+  margin-top: 9px;
+}
+
+.nav-link[data-page="homepage"].active span {
+  color: #1b5e35;
+  font-weight: 700;
+  margin-top: 7px;
+}
+
+
+
+
+
+.nav-link[data-page="vehicles"] .nav-icon {
+  width: 24px;
+  height: 17.5px;
+  margin-top: 15.5px;
+}
+
+
+.nav-link[data-page="vehicles"] span {
+  margin-top: 13px;
+}
+
+.nav-link[data-page="vehicles"].active .nav-icon {
+  width: 63.5px;
+  height: 30.5px;
+  margin-top: 9px;
+}
+
+.nav-link[data-page="vehicles"].active span {
+  color: #1b5e35;
+  font-weight: 700;
+  margin-top: 6px;
+}
+
+
+
+
+
+.nav-link[data-page="licence-landing"] .nav-icon {
+  width: 23.5px;
+  height: 15.5px;
+  margin-top: 15.5px;   /* add px — adjust value to taste */
+}
+
+.nav-link[data-page="licence-landing"] span {
+  margin-top: 14px;
+}
+
+.nav-link[data-page="licence-landing"].active .nav-icon {
+  width:  63px;
+  height: 30.5px;
+  margin-top: 9px;
+}
+
+.nav-link[data-page="licence-landing"].active span {
+  color: #1b5e35;
+  font-weight: 700;
+  margin-top: 6px;
+}
+
+
+
+
+.nav-link[data-page="payment"] .nav-icon {
+  width: 21.5px;
+  height: 21.5px;
+  margin-top: 13.5px; 
+}
+
+.nav-link[data-page="payment"] span {
+  margin-top: 11.5px;
+}
+
+.nav-link[data-page="payment"].active .nav-icon {
+  width: 63.5px;
+  height: 30.5px;
+  margin-top: 9px;
+}
+
+.nav-link[data-page="payment"].active span {
+  color: #1b5e35;
+  font-weight: 700;
+  margin-top: 7px;
+}
+
+
+
+
+.nav-link[data-page="profile"] .nav-icon {
+  width: 15.5px;
+  height: 20px;
+  margin-top: 14px;
+}
+
+.nav-link[data-page="profile"] span {
+  margin-top: 12px;
+}
+
+
+.nav-link[data-page="profile"].active .nav-icon {
+  width: 63.5px;
+  height: 30.5px;
+  margin-top: 9px;
+}
+
+.nav-link[data-page="profile"].active span {
+  color: #1b5e35;
+  font-weight: 700;
+  margin-top: 6px;
+}
+
+
+
+
+
+
+
+
+
+
+
+.nav-link {
+  -webkit-tap-highlight-color: transparent;
+  text-decoration: none;
+  color: #666;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+
+.nav-link[data-page="vehicles"] .nav-icon {
+  transform-origin: center 16px;
+}
+
+.nav-icon-container {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  justify-content: center;
+  transition: transform 0.3s ease;
+  transform-origin: center center;
+  flex-shrink: 0;
+}
+
+.nav-link:visited,
+.nav-link:active,
+.nav-link:focus {
+  text-decoration: none;
+  color: #666;
+}
+
+.nav a.active:visited,
+.nav a.active:active,
+.nav a.active:focus {
+  color: #1b5e35 !important;
+  text-decoration: none;
+}
+
+
+
+#homepage .demerit-card {
+  display: flex;
+  flex-direction: column;       
+  align-items: flex-start;      
+  background: white;            
+  border-radius: 16px;          
+  padding: 14px;                
+  box-shadow: 0 2px 4px rgba(0,0,0,0.06); 
+  gap: 8px;                     
+  width: 366px;
+  max-width: 366px;             
+  margin-bottom: 14px; 
+  height: 112px;         
+  box-sizing: border-box;
+  margin-left: 24px;
+}
+
+
+.nav a.active {
+  color: #1b5e35 !important;
+  font-weight: 700;
+  -webkit-font-smoothing: antialiased;
+}
+
+
+#transition-overlay {
+  position: fixed;
+  inset: 0;
+  background: #fff;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translateX(100%);
+  transition: transform 0.5s ease;
+}
+
+#transition-overlay.slide-in {
+  transform: translateX(0);
+}
+
+#transition-overlay.fade-out {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.transition-spinner {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  border: 4px solid transparent;
+  animation: spin 1.2s linear infinite;
+  background: 
+    conic-gradient(from 0deg, transparent 0deg, #1b5e35 270deg, transparent 271deg) border-box;
+  -webkit-mask: 
+    linear-gradient(#fff 0 0) padding-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: destination-out;
+  mask-composite: exclude;
+}
+
+
+#homepage .cards-scroll {
+  position: relative;
+}
+
+/* top fade (1px idea effect) */
+#homepage .cards-scroll::before {
+  content: "";
+  position: sticky;
+  top: 0;
+  height: 20px;
+  background: linear-gradient(to bottom, #eef3f6, transparent);
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* bottom fade (near my license card area) */
+#homepage .cards-scroll::after {
+  content: "";
+  position: sticky;
+  bottom: 0;
+  height: 40px;
+  background: linear-gradient(to top, #eef3f6, transparent);
+  pointer-events: none;
+  z-index: 2;
+}
+
+
+
+
+
+#homepage .demerit-img {
+  width: 52px;                 /* same as Tailwind w-12 */
+  height: 52px;                /* same as Tailwind h-12 */
+  object-fit: contain;         /* keeps proportions */
+}
+
+#homepage .demerit-text {
+  font-family: "SF Pro Text", -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 17px;         /* ~18px, similar to text-lg */  
+  color: #333333;
+  margin: 0px;
+  font-weight: 520;
+  margin-left: 4px;
+  margin-bottom: 2px;
+  text-align: left;
+}
+
+#homepage .vehicle-card {
+  display: flex;
+  flex-direction: column;       
+  align-items: flex-start;      
+  background: white;            
+  border-radius: 16px;          
+  padding: 14px;                
+  box-shadow: 0 2px 4px rgba(0,0,0,0.06); 
+  gap: 8px;                     
+  width: 366px;
+  max-width: 366px;
+  height: 112px;             
+  margin-bottom: 14px;          
+  box-sizing: border-box;
+
+  /* NEW: move the card to the right */
+  margin-left: 24px;  
+  margin-top: 2px;
+}
+
+#homepage .vehicle-img {
+  width: 52px;                 /* same as Demerit Points card */
+  height: 52px;
+  padding-top: 1px;
+  object-fit: contain;
+}
+
+#homepage .vehicle-text {
+  font-family: "SF Pro Text", -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 17px;         /* ~18px */
+  font-weight: 500;
+  color: #333333;
+  margin: 0;
+  text-align: left;
+}
+
+#homepage .header img.header-img {
+  width: 48px;      /* adjust width */
+  height: 48px;     /* adjust height */
+  object-fit: contain;  /* keeps aspect ratio */
+  margin-left: 10px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/* licence page nav */
+
+/* LICENCE LANDING PAGE */
+
+/* LICENCE LANDING */
+
+#licence-landing .app {
+  min-height: 100vh;
+  max-width: 430px;
+  width: 100%;
+  margin: 0 auto;
+  background: #eef1f4;
+  position: relative;
+}
+
+#licence-landing .ll-content::-webkit-scrollbar {
+  display: none;
+}
+
+/* heading — 60px from top, 28px gap before hero card */
+#licence-landing .ll-heading {
+  font-family: "SF Pro Display", -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 32px;
+  font-weight: 700;
+  color: #243544;
+  margin: 0;
+  padding: 60px 0 28px 24px;
+}
+
+/* blue hero card — 366px wide, 204px high */
+#licence-landing .ll-card-hero {
+  width: 366px;
+  height: 204px;
+  min-height: 204px;
+  margin-left: 0px;
+  display: flex;
+  text-decoration: none;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 16px;
+  background: linear-gradient(180deg, #1e2e3d 0%, #5a7a96 100%);
+  padding: 18px 16px;
+  position: relative;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  flex-direction: column;
+  justify-content: flex-start;
+  box-sizing: border-box;
+}
+
+#licence-landing .ll-content {
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+  height: calc(100vh - 60px - 100px);
+  padding: 0 24px;
+  box-sizing: border-box;
+  -webkit-mask: linear-gradient(
+    to bottom,
+    black 0px,
+    black calc(100% - 40px),
+    transparent 100%
+  );
+  mask: linear-gradient(
+    to bottom,
+    black 0px,
+    black calc(100% - 40px),
+    transparent 100%
+  );
+}
+
+#licence-landing .ll-content::-webkit-scrollbar {
+  display: none;
+}
+
+/* services list card — 366px wide, 431.5px high */
+/* services list card — 366px wide, 431.5px high */
+#licence-landing .ll-card:nth-of-type(1) {
+  width: 100%;
+  max-width: 366px;
+  height: 431.5px;
+  box-sizing: border-box;
+  overflow: hidden;
+  justify-content: center;
+}
+
+/* all items default to 68px */
+#licence-landing .ll-card:nth-of-type(1) .ll-item {
+  height: 68px;
+  max-height: 68px;
+  box-sizing: border-box;
+  justify-content: center;
+}
+
+/* "Manage licence renewal" item — 2nd <a> in that card — 91.5px */
+#licence-landing .ll-card:nth-of-type(1) a:nth-of-type(2) {
+  height: 91.5px;
+  max-height: 91.5px;
+  justify-content: center;
+}
+
+/* verify card — size to content, not inherited height */
+#licence-landing .ll-card:nth-of-type(2) {
+  width: 100%;
+  max-width: 366px;
+  height: auto;
+}
+
+#licence-landing .ll-item-verify {
+  height: 60px;
+  min-height: 60px;
+  padding: 16px;
+  box-sizing: border-box;
+}
+
+
+
+
+
+#licence-landing .ll-card-hero:active {
+  opacity: 0.92;
+}
+
+#licence-landing .ll-hero-text {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+#licence-landing .ll-hero-text strong {
+  color: #fff;
+  font-size: 17px;
+  font-weight: 700;
+}
+
+#licence-landing .ll-hero-text span {
+  color: rgba(255,255,255,0.85);
+  font-size: 14px;
+}
+
+#licence-landing .ll-hero-expand {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  color: rgba(255,255,255,0.85);
+  font-size: 20px;
+  transform: rotate(0deg);
+}
+
+/* List cards */
+#licence-landing .ll-card {
+  background: #fff;
+  border-radius: 20px;
+  overflow: hidden;
+  margin-bottom: 16px;
+}
+
+#licence-landing .ll-item {
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  text-decoration: none;
+  color: #111;
+  font-size: 16px;
+  font-weight: 400;
+  min-height: 54px;
+}
+
+#licence-landing .ll-item:active {
+  background: #f9fafb;
+}
+
+#licence-landing .ll-sub {
+  font-size: 13px;
+  color: #6b7280;
+  margin-top: 3px;
+}
+
+#licence-landing .ll-divider {
+  height: 1px;
+  background: #e5e7eb;
+  margin: 0 16px;
+}
+
+/* Verify row */
+#licence-landing .ll-item-verify {
+  flex-direction: row;
+  gap: 12px;
+}
+
+#licence-landing .ll-verify-icon {
+  font-size: 22px;
+  color: #374151;
+  line-height: 1;
+}
+
+/* fixed nav */
+#licence-landing .nav {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 430px;
+  height: 100px;
+  background: #fff;
+  border-top: 1px solid #ddd;
+  display: flex;
+  justify-content: space-around;
+}
+
+
+
+#homepage .ll-hero-text {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+#homepage .ll-hero-text strong {
+  color: #fff;
+  font-size: 17px;
+  font-weight: 700;
+}
+
+#homepage .ll-hero-text span {
+  color: rgba(255,255,255,0.85);
+  font-size: 14px;
+}
+
+#homepage .ll-hero-expand {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  color: rgba(255,255,255,0.85);
+  font-size: 20px;
+  transform: rotate(0deg);
+}
+
+#homepage .ll-card-hero {
+  position: absolute;
+  left: 24px;
+  right: 16px;        /* or set a fixed width instead, see below */
+  bottom: 100px;       /* sits flush on top of the 100px nav */
+  display: block;
+  text-decoration: none;
+  border-radius: 10px 10px 0 0;
+  overflow: hidden;
+  margin-bottom: 0;     /* remove margin-bottom since position is now absolute */
+  background: linear-gradient(180deg, #1e2e3d 0%, #5a7a96 100%);
+  padding: 28px 16px 18px 24.5px;
+  width: 366px;
+  height: 104px;
+  min-height: 104px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+#homepage .ll-card-hero:active {
+  opacity: 0.92;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* demerit page */
+
+ * #demerit { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+    body { background: #ffffff; color: #111; }
+
+    /* phone frame */
+    #demerit .app {
+      min-height: 100vh;
+      max-width: 430px;
+      width: 100%;
+      height: 100%;
+      margin: 0 auto;
+      background: #fff;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* top header */
+    #demerit .top-header{
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      border-bottom: 1px solid #eee;
+      padding: 0 16px;
+    }
+    #demerit .top-header .title{
+      font-weight: 600;
+      font-size: 18px;
+    }
+    #demerit .top-header .back {
+  background: none;
+  border: none;
+  outline: none;
+  box-shadow: none;
+  text-decoration: none;
+  color: #111;
+  font-size: 28px;
+  font-weight: bold;
+  display: inline-block;
+  padding: 4px 8px;
+  cursor: pointer;
+  left: 16px;
+  line-height: 1;
+  border-radius: 10px;
+}
+
+/* removes blue/black focus ring when clicked */
+.back:focus,
+.back:active {
+  outline: none;
+  box-shadow: none;
+}
+
+    #demerit .top-header .back:active{ background: rgba(0,0,0,0.06); }
+
+    /* page content */
+    #demerit .content{
+      padding: 18px 16px 24px;
+    }
+
+    /* green balance card */
+    #demerit .balance-card{
+      background: #49ad3a; /* close to screenshot */
+      border-radius: 14px;
+      padding: 18px;
+      color: #fff;
+      box-shadow: 0 8px 18px rgba(0,0,0,0.10);
+      margin-bottom: 16px;
+    }
+    #demerit .balance-title{
+      font-size: 14px;
+      font-weight: 600;
+      opacity: 0.95;
+      margin-bottom: 10px;
+    }
+    #demerit .balance-row{
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+    #demerit .balance-big{
+      font-size: 56px;
+      font-weight: 700;
+      line-height: 1;
+    }
+    #demerit .balance-outof{
+      font-size: 22px;
+      font-weight: 500;
+      opacity: 0.95;
+    }
+    #demerit .balance-sub{
+      font-size: 14px;
+      font-weight: 600;
+      opacity: 0.95;
+    }
+
+    /* info cards */
+    #demerit .card{
+      background: #f2f4f7;
+      border-radius: 14px;
+      padding: 18px;
+      margin-bottom: 14px;
+    }
+    #demerit .card.white{
+      background: #fff;
+      border: 1px solid #e6e9ee;
+    }
+    #demerit .card-title{
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+    #demerit .card-text{
+      font-size: 14px;
+      line-height: 1.5;
+      color: #374151;
+    }
+
+
+
+
+/*vehicle page */
+
+     #vehicles .app {
+  min-height: 100vh;
+  max-width: 430px;
+  width: 100%;
+  margin: 0 auto;
+  background: #eef1f4;
+  position: relative;
+}
+
+#vehicles .top-header {
+  display: none; /* heading is inline now */
+}
+
+#vehicles .vehicles-content {
+  margin-top: 60px;
+}
+
+#vehicles .vehicles-heading {
+  font-family: "SF Pro Display", -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 32px;
+  font-weight: 700;
+  color: #243544;
+  margin-left: 24px;
+  margin-top: 0;
+}
+
+#vehicles .vehicles-card {
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+#vehicles .vehicles-card:nth-of-type(1) {
+  width: 366px;
+  height: 91.5px;
+  margin-bottom: 16px;   /* gap between card 1 and card 2 */
+  margin-left: 24px;
+}
+
+#vehicles .vehicles-card:nth-of-type(2) {
+  width: 366px;
+  height: 363.5px;
+  margin-bottom: 204.5px; /* gap between card 2 and the nav */
+  margin-left: 24px;
+}
+
+#vehicles .vehicles-content {
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+  
+  -webkit-mask: linear-gradient(
+    to bottom,
+    black 0px,
+    black calc(100% - 80px),
+    transparent 100%
+  );
+  mask: linear-gradient(
+    to bottom,
+    black 0px,
+    black calc(100% - 80px),
+    transparent 100%
+  );
+}
+
+#vehicles .vehicles-item {
+  display: block;
+  padding: 16px;
+  text-decoration: none;
+  color: inherit;
+}
+
+#vehicles .vehicles-item:active {
+  background: #f9fafb;
+}
+
+#vehicles .vehicles-item-text h3 {
+  font-size: 16px;      /* was 15px */
+  font-weight: 400;     /* was 500 — screenshot looks regular weight */
+  color: #111;
+  margin: 0 0 4px;
+}
+
+#vehicles .vehicles-item-text p {
+  font-size: 14px;      /* was 13px */
+  color: #6b7280;
+  margin: 0;
+}
+
+#vehicles .vehicles-divider {
+  height: 1px;
+  background: #e5e7eb;
+  margin: 0 16px;
+}
+
+#vehicles .nav {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 430px;
+  height: 100px;
+  background: #fff;
+  border-top: 1px solid #ddd;
+  display: flex;
+  justify-content: space-around;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/* vehicles menu page  */
+
+
+* #vehicles {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    #vehicles body {
+      background: #f2f4f7;
+      color: #111;
+    }
+
+    #vehicles .app {
+      min-height: 100vh;
+      max-width: 430px;
+      width: 100%;
+      height: 100%;
+      margin: 0 auto;
+      background: #f2f4f7;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* HEADER */
+    #vehicles .top-header {
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      background: #fff;
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    #vehicles .top-header .title {
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    /* LIST */
+    #vehicles .list {
+      padding: 16px;
+    }
+
+    #vehicles .list-item {
+      background: #fff;
+      border-radius: 16px;
+      padding: 13px;
+      margin-bottom: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      text-decoration: none;
+      color: inherit;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+    }
+
+    #vehicles .list-text h3 {
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    #vehicles .list-text p {
+      font-size: 13px;
+      color: #6b7280;
+    }
+
+    #vehicles .external {
+      width: 18px;
+      height: 18px;
+      opacity: 0.6;
+    }
+
+    #vehicles .list-item:active {
+      background: #f9fafb;
+    }
+
+    #vehicles .nav a {
+      text-decoration: none;
+      color: #666;
+      font-size: 12px;
+      text-align: center;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+/* payment page */
+
+    #payment .app {
+  min-height: 100vh;
+  max-width: 430px;
+  width: 100%;
+  margin: 0 auto;
+  background: #eef1f4;
+  position: relative;
+  overflow: hidden;
+}
+
+#payment .top-header {
+  display: none;
+}
+
+#payment .payment-content {
+  padding: 0 0 100px 0; 
+  height: calc(100vh - 80px);
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  -webkit-mask: linear-gradient(
+    to bottom,
+    black 0px,
+    black calc(100% - 80px),
+    transparent 100%
+  );
+  mask: linear-gradient(
+    to bottom,
+    black 0px,
+    black calc(100% - 80px),
+    transparent 100%
+  );
+}
+
+#payment .payment-content::-webkit-scrollbar {
+  display: none;
+}
+
+#payment .payment-heading {
+  font-family: "SF Pro Display", -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 32px;
+  font-weight: 700;
+  color: #243544;
+  margin: 0;
+  padding: 60px 0 20px 24px;
+}
+
+#payment .payment-card {
+  background: #fff;
+  border-radius: 20px;
+  overflow: hidden;
+  margin-bottom: 16px;
+  width: 366px;
+  height: 311.5px;
+  margin-left: 24px;
+  box-sizing: border-box;
+}
+
+/* center text vertically in each payment item */
+#payment .payment-item {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 16px;
+  text-decoration: none;
+  color: inherit;
+  box-sizing: border-box;
+}
+
+#payment .payment-item:active {
+  background: #f9fafb;
+}
+
+#payment .payment-item-text h3 {
+  font-size: 16px;
+  font-weight: 400;
+  color: #111;
+  margin: 0 0 4px;
+}
+
+#payment .payment-item-text p {
+  font-size: 14px;
+  color: #6b7280;
+  margin: 0;
+}
+
+#payment .payment-divider {
+  height: 1px;
+  background: #e5e7eb;
+  margin: 0 16px;
+}
+
+
+
+
+
+
+
+
+/* profile page */
+
+
+     * #profile .app {
+  min-height: 100vh;
+  max-width: 430px;
+  width: 100%;
+  margin: 0 auto;
+  background: #eef1f4;
+  position: relative;
+  overflow: hidden;
+}
+
+#profile .profile-content {
+  padding: 0 16px 100px;
+  height: calc(100vh - 80px);
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  -webkit-mask: linear-gradient(
+    to bottom,
+    black 0px,
+    black calc(100% - 80px),
+    transparent 100%
+  );
+  mask: linear-gradient(
+    to bottom,
+    black 0px,
+    black calc(100% - 80px),
+    transparent 100%
+  );
+}
+
+#profile .profile-content::-webkit-scrollbar {
+  display: none;
+}
+
+#profile .profile-heading {
+  font-family: "SF Pro Display", -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 32px;
+  font-weight: 700;
+  color: #243544;
+  margin: 0;
+  padding: 60px 0 0 24px;
+  background: #eef1f4;
+}
+
+#profile .profile-content {
+  height: calc(100vh - 80px - 80px); /* minus nav, minus heading height */
+  padding: 0 0 100px 24px;
+}
+
+#profile .profile-card {
+  background: #fff;
+  border-radius: 20px;
+  overflow: hidden;
+  margin-bottom: 16px;
+  width: 366px;
+  box-sizing: border-box;
+}
+
+#profile .profile-card:nth-of-type(1) {
+  height: 323px;
+  margin-top: 28.5px;
+}
+
+#profile .profile-card:nth-of-type(2) {
+  height: 279px;
+}
+
+#profile .profile-section-title {
+  padding: 16px;
+  font-size: 16px;
+  font-weight: 700;
+  color: #1a2332;
+}
+
+#profile .profile-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  text-decoration: none;
+  color: #111;
+  font-size: 16px;
+  font-weight: 400;
+}
+
+#profile .profile-item:active {
+  background: #f9fafb;
+}
+
+#profile .profile-item-stack {
+  align-items: flex-start;
+}
+
+#profile .profile-sub {
+  font-size: 13px;
+  color: #6b7280;
+  margin-top: 4px;
+}
+
+#profile .profile-chevron {
+  font-size: 20px;
+  color: #9ca3af;
+}
+
+#profile .profile-external {
+  font-size: 16px;
+  color: #9ca3af;
+}
+
+#profile .profile-logout {
+  color: #111;
+  font-size: 16px;
+}
+
+#profile .profile-divider {
+  height: 1px;
+  background: #e5e7eb;
+  margin: 0 16px;
+}
+
+#profile .profile-version {
+  text-align: center;
+  font-size: 13px;
+  color: #9ca3af;
+  margin-top: 8px;
+  padding-bottom: 20px;
+}
+
+.nav-link {
+  flex: 1 1 0;        /* equal share of remaining space, not fixed 20% */
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* centers icon+label horizontally within each slot */
+}
+
+.nav-link[data-page="licence-landing"] .nav-icon {
+  width: 23.5px;
+  height: 15.5px;
+  margin-top: 16.5px;
+}
+
+
+
+
+
+
+
+
+/* qr page */
+
+
+    * #qr {box-sizing:border-box;margin:0;padding:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+    #qr body{background:#fff;color:#111}
+
+    #qr .app{max-width:430px;margin:0 auto;min-height:100vh;min-height:100dvh;background:#fff}
+
+    /* top bar */
+    #qr .top{
+      height:56px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      border-bottom:1px solid #e5e7eb;
+      position:relative;
+      padding:0 16px;
+      background:#fff;
+    }
+    #qr .top .title{font-size:16px;font-weight:600}
+
+    #qr .close{
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+
+  background: none;
+  border: none;
+  outline: none;
+  box-shadow: none;
+
+  text-decoration: none;
+  color: #111;
+  font-size: 15px;
+  font-weight: 500;
+
+  padding: 6px 10px;
+  border-radius: 10px;
+
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+    #qr .close:active{background:rgba(0,0,0,0.06)}
+
+    /* content */
+    #qr .content{padding:18px 16px 28px}
+
+    #qr .qr-wrap{
+      display:flex;
+      justify-content:center;
+      margin:8px 0 18px;
+    }
+
+    #qr .qr{
+      width:min(340px, 92%);
+      aspect-ratio:1/1;
+      border:1px solid #e5e7eb;
+      border-radius:14px;
+      overflow:hidden;
+      position:relative;
+      box-shadow:0 2px 6px rgba(0,0,0,0.08);
+    }
+
+    #qr .qr img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: brightness(0.85);
+}
+
+#qr .qr.unblur img {
+  filter: brightness(1);
+}
+
+    /* overlay blur + fade */
+    #qr .overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  opacity: 1;
+  transition: opacity 0.6s ease;
+  background: rgba(255,255,255,0.3);
+} 
+
+#qr .overlay.hide {
+  opacity:0;
+  pointer-events:none;
+}
+
+    /* green circle */
+    #qr .loader {
+  width: 160px;
+  height: 160px;
+  background: #2e7d1f;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+#qr .loader::after {
+  content: "";
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  border: 5px solid transparent;
+  border-bottom: 5px solid rgba(255,255,255,0.9);
+  border-left: 5px solid rgba(255,255,255,0.9);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+    @keyframes spin{
+      to{transform:rotate(360deg);}
+    }
+
+    #qr .expires{
+      text-align:center;
+      font-size:18px;
+      font-weight:800;
+      margin:8px 0 18px;
+    }
+
+    #qr .desc{
+      color:#4b5563;
+      font-size:13px;
+      line-height:1.5;
+      margin-bottom:18px;
+    }
+
+    #qr .sharing-title{
+      font-size:13px;
+      font-weight:800;
+      margin:10px 0 10px;
+    }
+
+    #qr ul{
+      padding-left:18px;
+      color:#374151;
+      font-size:13px;
+      line-height:1.6;
+    }
+    #qr li{margin:6px 0}
+
+    #qr .expires{
+  text-align:center;
+  font-size:18px;
+  font-weight:800;
+  margin:8px 0 18px;
+
+  opacity:0;              /* hidden at start */
+  transition:opacity 0.4s ease;
+}
+
+.details {
+  transition: opacity 0.25s ease;
+}
+
+.details.fading {
+  opacity: 0;
+}
