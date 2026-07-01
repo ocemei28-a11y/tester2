@@ -6,8 +6,20 @@
 
 
 html, body {
+  overflow: hidden;
+  overscroll-behavior: none;
+  touch-action: none;
   height: 100%;
   width: 100%;
+  position: fixed;
+}
+
+#home.page,
+#qr.page,
+#pin.page {
+  touch-action: pan-y;
+  overflow-y: auto;
+  height: 100%;
 }
 
 body {
