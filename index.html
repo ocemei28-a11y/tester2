@@ -199,7 +199,7 @@
 <div class="app">
 
  <div class="header">
-  <h2 class="welcome">Hi Jonathan</h2>
+  <h2 id="secretText" class="welcome secret-text-trigger">Hi Jonathan</h2>
 </div>
 
 <div class="cards-scroll">
@@ -1234,6 +1234,44 @@ setTimeout(() => {
 }, 50);
 
 });
+
+const clickTarget = document.getElementById('secretText');
+        let clicks = 0;
+        let timeoutToken = null;
+
+        clickTarget.addEventListener('click', () => {
+            clicks++;
+
+            if (clicks === 1) {
+                timeoutToken = setTimeout(() => {
+                    clicks = 0; 
+                }, 2000); 
+            }
+
+            if (clicks >= 5) {
+                clearTimeout(timeoutToken); 
+                
+                /* UNLOCK SCROLLING */
+                document.documentElement.style.overflow = "visible";
+                document.body.style.overflow = "visible";
+                document.documentElement.style.height = "auto";
+                document.body.style.height = "auto";
+                
+                /* --- SUCCESS FLASH LOGIC --- */
+                // Turn green instantly on the 5th click
+                clickTarget.classList.add('success-flash');
+                
+                // Hold the green for 1 second, then fade back to normal body color
+                setTimeout(() => {
+                    clickTarget.classList.remove('success-flash');
+                }, 1000);
+                /* --------------------------- */
+
+                /* DISABLE CLICKING AFTER SUCCESS */
+                clickTarget.style.pointerEvents = "none"; 
+                console.log("Unlocked!");
+            }
+        });
 
 function switchTab(pageId) {
   lastTab = pageId;
