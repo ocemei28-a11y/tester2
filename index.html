@@ -235,7 +235,7 @@
   <a href="javascript:void(0)"
      class="nav-link"
      data-page="homepage"
-     onclick="showPage('homepage')">
+     onclick="showPage('homepage'); handleHomeNavTap();">
 
       <img
           class="nav-icon"
@@ -417,7 +417,7 @@
       <a href="javascript:void(0)"
      class="nav-link"
      data-page="homepage"
-     onclick="showPage('homepage')">
+     onclick="showPage('homepage'); handleHomeNavTap();">
 
       <img
           class="nav-icon"
@@ -539,7 +539,7 @@
       <a href="javascript:void(0)"
      class="nav-link"
      data-page="homepage"
-     onclick="showPage('homepage')">
+     onclick="showPage('homepage'); handleHomeNavTap();">
 
       <img
           class="nav-icon"
@@ -694,7 +694,7 @@
       <a href="javascript:void(0)"
      class="nav-link"
      data-page="homepage"
-     onclick="showPage('homepage')">
+    onclick="showPage('homepage'); handleHomeNavTap();">
 
       <img
           class="nav-icon"
@@ -829,7 +829,7 @@
       <a href="javascript:void(0)"
      class="nav-link"
      data-page="homepage"
-     onclick="showPage('homepage')">
+     onclick="showPage('homepage'); handleHomeNavTap();">
 
       <img
           class="nav-icon"
@@ -962,6 +962,40 @@
   <script>
 
 let lastTab = 'home';
+
+let scrollUnlocked = false;
+let homeTapTimestamps = [];
+
+function handleHomeNavTap() {
+  const now = Date.now();
+  homeTapTimestamps.push(now);
+  // keep only taps within the last 2 seconds
+  homeTapTimestamps = homeTapTimestamps.filter(t => now - t <= 2000);
+
+  if (homeTapTimestamps.length >= 5) {
+    scrollUnlocked = !scrollUnlocked;
+    homeTapTimestamps = []; // reset so it doesn't re-trigger instantly
+    applyScrollLockState();
+    playToggleSound(scrollUnlocked);
+    console.log('Scroll toggled:', scrollUnlocked ? 'UNLOCKED' : 'LOCKED');
+  }
+}
+
+function applyScrollLockState() {
+  const gatedContainers = [
+    document.querySelector('#homepage .cards-scroll'),
+    document.querySelector('#vehicles .vehicles-content'),
+    document.querySelector('#licence-landing .ll-content'),
+    document.querySelector('#payment .payment-content'),
+    document.querySelector('#profile .profile-content')
+  ];
+
+  gatedContainers.forEach(el => {
+    if (!el) return;
+    el.style.overflowY = scrollUnlocked ? 'auto' : 'hidden';
+    el.style.touchAction = scrollUnlocked ? 'pan-y' : 'none';
+  });
+}
 
 let seconds = 120;
 let timerStarted = false;
@@ -1182,69 +1216,6 @@ img.style.transform = scaleValue.includes("scale") ? scaleValue : `scale(${scale
 // SCROLL RESISTANCE — all three here, outside showPage
 document.addEventListener('DOMContentLoaded', () => {
 
-  const vehiclesContent = document.querySelector('#vehicles .vehicles-content');
-  if (vehiclesContent) {
-    let lastY = 0;
-    vehiclesContent.addEventListener('touchstart', e => {
-      lastY = e.touches[0].clientY;
-    });
-    vehiclesContent.addEventListener('touchmove', e => {
-      const currentY = e.touches[0].clientY;
-      const delta = lastY - currentY;
-      lastY = currentY;
-      const atTop = vehiclesContent.scrollTop <= 0;
-      const atBottom = vehiclesContent.scrollTop + vehiclesContent.clientHeight >= vehiclesContent.scrollHeight;
-      if ((atTop && delta < 0) || (atBottom && delta > 0)) {
-        e.preventDefault();
-        vehiclesContent.scrollTop += delta * 0.2;
-      } else {
-        vehiclesContent.scrollTop += delta;
-      }
-    }, { passive: false });
-  }
-
-  const paymentContent = document.querySelector('#payment .payment-content');
-  if (paymentContent) {
-    let lastY2 = 0;
-    paymentContent.addEventListener('touchstart', e => {
-      lastY2 = e.touches[0].clientY;
-    });
-    paymentContent.addEventListener('touchmove', e => {
-      const currentY = e.touches[0].clientY;
-      const delta = lastY2 - currentY;
-      lastY2 = currentY;
-      const atTop = paymentContent.scrollTop <= 0;
-      const atBottom = paymentContent.scrollTop + paymentContent.clientHeight >= paymentContent.scrollHeight;
-      if ((atTop && delta < 0) || (atBottom && delta > 0)) {
-        e.preventDefault();
-        paymentContent.scrollTop += delta * 0.2;
-      } else {
-        paymentContent.scrollTop += delta;
-      }
-    }, { passive: false });
-  }
-
-  const profileContent = document.querySelector('#profile .profile-content');
-  if (profileContent) {
-    let lastY3 = 0;
-    profileContent.addEventListener('touchstart', e => {
-      lastY3 = e.touches[0].clientY;
-    });
-    profileContent.addEventListener('touchmove', e => {
-      const currentY = e.touches[0].clientY;
-      const delta = lastY3 - currentY;
-      lastY3 = currentY;
-      const atTop = profileContent.scrollTop <= 0;
-      const atBottom = profileContent.scrollTop + profileContent.clientHeight >= profileContent.scrollHeight;
-      if ((atTop && delta < 0) || (atBottom && delta > 0)) {
-        e.preventDefault();
-        profileContent.scrollTop += delta * 0.2;
-      } else {
-        profileContent.scrollTop += delta;
-      }
-    }, { passive: false });
-  }
-
   // init pill position on home page
 setTimeout(() => {
   const homeSeg = document.querySelector('#home .segmented');
@@ -1321,6 +1292,26 @@ function switchTab(pageId) {
   }
 }
 
+function playToggleSound(unlocked) {
+  const ctx = new (window.AudioContext || window.webkitAudioContext)();
+  const oscillator = ctx.createOscillator();
+  const gainNode = ctx.createGain();
+
+  oscillator.connect(gainNode);
+  gainNode.connect(ctx.destination);
+
+  oscillator.type = 'sine';
+  // higher pitch for unlock, lower pitch for lock
+  oscillator.frequency.value = unlocked ? 880 : 440;
+
+  gainNode.gain.setValueAtTime(0.2, ctx.currentTime);
+  gainNode.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.3);
+
+  oscillator.start(ctx.currentTime);
+  oscillator.stop(ctx.currentTime + 0.3);
+}
+
+
 // Show splash first
 document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
 document.getElementById('splash').style.display = 'block';
@@ -1330,6 +1321,9 @@ setTimeout(() => {
   document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
   document.getElementById('pin').style.display = 'block';
 }, 500);
+
+applyScrollLockState();
+
 </script>
 </div>
 </body>
