@@ -6,10 +6,8 @@
 
 
 html, body {
-  overflow: hidden;
   height: 100%;
   width: 100%;
-  position: fixed;
 }
 
 .secret-text-trigger {
@@ -634,7 +632,6 @@ h3 {
       height: 100%;
   background: #eef3f6;
   position: relative; /* important for absolute positioning */
-  overflow: hidden;
   margin: 0 auto;
   min-height: 100vh;
 }
@@ -741,7 +738,6 @@ h3 {
   display: flex;
   justify-content: space-evenly;
   width: 100%;
-  overflow: hidden;
 }
 
 #homepage .nav a {
@@ -1146,7 +1142,6 @@ h3 {
   display: flex;
   text-decoration: none;
   border-radius: 10px;
-  overflow: hidden;
   margin-bottom: 16px;
   background: linear-gradient(180deg, #1e2e3d 0%, #5a7a96 100%);
   padding: 18px 16px;
@@ -1188,7 +1183,6 @@ h3 {
   max-width: 366px;
   height: 431.5px;
   box-sizing: border-box;
-  overflow: hidden;
   justify-content: center;
 }
 
@@ -1259,7 +1253,6 @@ h3 {
 #licence-landing .ll-card {
   background: #fff;
   border-radius: 20px;
-  overflow: hidden;
   margin-bottom: 16px;
 }
 
@@ -1353,7 +1346,6 @@ h3 {
   display: block;
   text-decoration: none;
   border-radius: 10px 10px 0 0;
-  overflow: hidden;
   margin-bottom: 0;     /* remove margin-bottom since position is now absolute */
   background: linear-gradient(180deg, #1e2e3d 0%, #5a7a96 100%);
   padding: 28px 16px 18px 24.5px;
@@ -1397,7 +1389,6 @@ h3 {
       margin: 0 auto;
       background: #fff;
       position: relative;
-      overflow: hidden;
     }
 
     /* top header */
@@ -1538,7 +1529,6 @@ h3 {
 #vehicles .vehicles-card {
   background: #fff;
   border-radius: 8px;
-  overflow: hidden;
   box-sizing: border-box;
 }
 
@@ -1652,7 +1642,6 @@ h3 {
       margin: 0 auto;
       background: #f2f4f7;
       position: relative;
-      overflow: hidden;
     }
 
     /* HEADER */
@@ -1737,7 +1726,6 @@ h3 {
   margin: 0 auto;
   background: #eef1f4;
   position: relative;
-  overflow: hidden;
 }
 
 #payment .top-header {
@@ -1780,7 +1768,6 @@ h3 {
 #payment .payment-card {
   background: #fff;
   border-radius: 20px;
-  overflow: hidden;
   margin-bottom: 16px;
   width: 366px;
   height: 311.5px;
@@ -1839,7 +1826,6 @@ h3 {
   margin: 0 auto;
   background: #eef1f4;
   position: relative;
-  overflow: hidden;
 }
 
 #profile .profile-content {
@@ -1884,7 +1870,6 @@ h3 {
 #profile .profile-card {
   background: #fff;
   border-radius: 20px;
-  overflow: hidden;
   margin-bottom: 16px;
   width: 366px;
   box-sizing: border-box;
